@@ -2,7 +2,7 @@ import "reflect-metadata";
 import express from 'express';
 import { CheckConfig, Port } from "./domain/services/configuration.service";
 import { container } from "tsyringe";
-import { UserValidator } from "./domain/validators/user.validator";
+import { CreateUserCommandValidator } from "./domain/validators/createusercommand.validator";
 import { UserService } from "./domain/services/user.service";
 import { UserController } from "./web/controllers/user.controller";
 import UserRoute from "./web/routes/user.route";
@@ -24,7 +24,7 @@ container.register("IUserService", {
     useClass: UserService
 });
 container.register("IValidator<CreateUserCommand>", {
-    useClass: UserValidator
+    useClass: CreateUserCommandValidator
 });
 
 const usersController = container.resolve(UserController);

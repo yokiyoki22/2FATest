@@ -5,7 +5,7 @@ import { IValidator } from "../interfaces/ivalidator";
 import { IUserRepository } from "../interfaces/repositories/iuser.repository";
 
 @injectable()
-export class UserValidator implements IValidator<CreateUserCommand>{
+export class CreateUserCommandValidator implements IValidator<CreateUserCommand>{
     private _repo: IUserRepository;
 
     constructor(@inject("IUserRepository") usersRepo: IUserRepository){
