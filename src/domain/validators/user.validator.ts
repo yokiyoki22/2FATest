@@ -8,7 +8,7 @@ import { IUserRepository } from "../interfaces/repositories/iuser.repository";
 export class UserValidator implements IValidator<CreateUserCommand>{
     private _repo: IUserRepository;
 
-    constructor(@inject("IUsersRepository") usersRepo: IUserRepository){
+    constructor(@inject("IUserRepository") usersRepo: IUserRepository){
         this._repo = usersRepo;
     }
 
