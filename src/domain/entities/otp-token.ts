@@ -1,5 +1,5 @@
 export interface OtpToken{
     userId: string,
-    otp: string,
+    token: string,
     expiration: Date
 }
