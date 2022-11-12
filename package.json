@@ -1,0 +1,27 @@
+{
+  "name": "user-service",
+  "version": "1.0.0",
+  "description": "A simple service to handle registration and login, with 2FA",
+  "main": "app.js",
+  "scripts": {
+    "tsc": "tsc",
+    "dev": "nodemon --watch src/** --exec ts-node src/app.ts",
+    "start": "node build/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yokiyoki22/2FATest.git"
+  },
+  "author": "Mateus Zampol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yokiyoki22/2FATest/issues"
+  },
+  "homepage": "https://github.com/yokiyoki22/2FATest#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
+}
