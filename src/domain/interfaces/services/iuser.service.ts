@@ -1,6 +1,6 @@
 import { CreateUserCommand } from "../../contracts/commands/create-user";
-import { User } from "../../entities/user";
+import { UserCreatedResponse } from "../../contracts/responses/user-created-response";
 
 export interface IUserService{
-    createUser(user: CreateUserCommand) : Promise<User>;
+    createUser(user: CreateUserCommand) : Promise<UserCreatedResponse>;
 }
