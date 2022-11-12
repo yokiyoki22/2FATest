@@ -23,6 +23,18 @@ export class UserValidator implements IValidator<CreateUserCommand>{
         if(item.email === undefined){
             errors.push('Missing email.');
         }
+        if(item.password === undefined){
+            errors.push('Missing password.');
+        }
+        if(item.passwordConfirm === undefined){
+            errors.push('Missing password confirmation.');
+        }
+        if(item.enable2fa === undefined){
+            errors.push('Missing 2FA selection.');
+        }
+        if(item.password && item.passwordConfirm && item.passwordConfirm !== item.password){
+            errors.push('The passwords don\'t match.');
+        }
         if(item.email && !emailRegexp.test(item.email)){
             errors.push('Invalid email format.');
         }
