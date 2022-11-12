@@ -8,6 +8,7 @@ import { IValidator } from "../interfaces/ivalidator";
 import { ITokenRepository } from "../interfaces/repositories/itoken.repository";
 import { IUserRepository } from "../interfaces/repositories/iuser.repository";
 import { IUserService } from "../interfaces/services/iuser.service";
+import crypto from "crypto";
 
 @injectable()
 export class UserService implements IUserService{
