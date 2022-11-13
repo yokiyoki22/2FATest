@@ -1,13 +1,15 @@
 import { User } from "../../domain/entities/user";
 import { IUserRepository } from "../../domain/interfaces/repositories/iuser.repository";
 import { PrismaClient } from '@prisma/client'
-import { injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 @injectable()
 export class UserRepository implements IUserRepository{
     private _client: PrismaClient;
-    constructor(){
-        this._client = new PrismaClient();
+    constructor(
+        @inject("PrismaClient") client: PrismaClient
+    ){
+        this._client = client;
     }
 
     async getUserByEmail(email: string): Promise<User | null> {

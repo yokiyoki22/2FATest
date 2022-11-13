@@ -9,12 +9,18 @@ import UserRoute from "./web/routes/user.route";
 import { UserRepository } from "./infrastructure/repositories/user.repository";
 import { TokenRepository } from "./infrastructure/repositories/token.repository";
 import { EmailService } from "./domain/services/email.service";
+import { PrismaClient } from "@prisma/client";
 
 const app = express();
 
 app.use(express.json());
 
 CheckConfig();
+
+const prismaClient = new PrismaClient();
+container.register("PrismaClient", {
+    useValue: prismaClient
+});
 container.register("IEmailService", {
     useClass: EmailService
 });
