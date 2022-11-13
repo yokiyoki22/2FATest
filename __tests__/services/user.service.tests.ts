@@ -18,14 +18,14 @@ describe("User service tests", () => {
         id: "1234",
         fullName: "John Smith",
         email: "John.Smith@domain.tld",
-        password: "Password123!",
+        password: "$2b$12$0um68CofO1zMdmY.khx0SuIckUWcdfWrJcD70HHh.p9dLeYJPXF.i", //hash from Password123!
         twoFactor: false
     };
     const fakeUserWith2fa: User = {
         id: "9876",
         fullName: "John Titor",
         email: "John.Titor@domain.tld",
-        password: "Password123!",
+        password: "$2b$12$0um68CofO1zMdmY.khx0SuIckUWcdfWrJcD70HHh.p9dLeYJPXF.i", //hash from Password123!
         twoFactor: true
     };
     const fakeToken: OtpToken = {
@@ -65,7 +65,7 @@ describe("User service tests", () => {
     test("Successful login without 2FA", async () => {
         const response = await service.login({
             email: fakeUser.email,
-            password: fakeUser.password
+            password: "Password123!"
         });
         expect(response.jwtToken).toBeTruthy();
         expect(response.succeeded).toBeTruthy();
@@ -75,7 +75,7 @@ describe("User service tests", () => {
     test("Login with 2FA first step", async () => {
         const response = await service.login({
             email: fakeUserWith2fa.email,
-            password: fakeUserWith2fa.password
+            password: "Password123!"
         });
         expect(response.jwtToken).toBeFalsy();
         expect(response.succeeded).toBeTruthy();
@@ -92,7 +92,7 @@ describe("User service tests", () => {
             ); 
         const response = await service2.login({
             email: fakeUserWith2fa.email,
-            password: fakeUserWith2fa.password,
+            password: "Password123!",
             token: "1234567890"
         });
         expect(response.jwtToken).toBeFalsy();
@@ -110,7 +110,7 @@ describe("User service tests", () => {
             ); 
         const response = await service2.login({
             email: fakeUserWith2fa.email,
-            password: fakeUserWith2fa.password,
+            password: "Password123!",
             token: "1122334455"
         });
         expect(response.jwtToken).toBeTruthy();
