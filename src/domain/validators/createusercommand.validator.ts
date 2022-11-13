@@ -17,19 +17,19 @@ export class CreateUserCommandValidator implements IValidator<CreateUserCommand>
 
         const errors = new Array<string>();
 
-        if(item.fullName === undefined){
+        if(item.fullName == null){
             errors.push('Missing fullName.');
         }
-        if(item.email === undefined){
+        if(item.email == null){
             errors.push('Missing email.');
         }
-        if(item.password === undefined){
+        if(item.password == null){
             errors.push('Missing password.');
         }
-        if(item.passwordConfirm === undefined){
+        if(item.passwordConfirm == null){
             errors.push('Missing password confirmation.');
         }
-        if(item.enable2fa === undefined){
+        if(item.enable2fa == null){
             errors.push('Missing 2FA selection.');
         }
         if(item.password && item.passwordConfirm && item.passwordConfirm !== item.password){
