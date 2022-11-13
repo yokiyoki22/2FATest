@@ -13,10 +13,10 @@ export class UserRepository implements IUserRepository{
     }
 
     async getUserByEmail(email: string): Promise<User | null> {
-        return this._client.user.findUnique({where: {email}});
+        return this._client.users.findUnique({where: {email}});
     }
 
     async createUser(user: User): Promise<void> {
-        await this._client.user.create({data: user});
+        await this._client.users.create({data: user});
     }
 }

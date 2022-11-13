@@ -12,7 +12,7 @@ export class TokenRepository implements ITokenRepository{
         this._client = client;
     }
     async invalidateTokenForUserId(id: string): Promise<void> {
-        await this._client.otpToken.deleteMany({
+        await this._client.otpTokens.deleteMany({
             where:{
                 userId: id
             }
@@ -20,16 +20,16 @@ export class TokenRepository implements ITokenRepository{
     }
 
     async saveToken(token: OtpToken): Promise<void> {
-        await this._client.otpToken.deleteMany({
+        await this._client.otpTokens.deleteMany({
             where:{
                 userId: token.userId
             }
         });
-        await this._client.otpToken.create({
+        await this._client.otpTokens.create({
             data: token
         });
     }
     async getTokenByUserId(id: string): Promise<OtpToken | null> {
-        return await this._client.otpToken.findUnique({where: {userId:id}})
+        return await this._client.otpTokens.findUnique({where: {userId:id}})
     }
 }
