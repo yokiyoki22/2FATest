@@ -1,6 +1,9 @@
 # 2FATest
 Little service that allows for user registration and login, with 2FA functionality
 
+## Notes
+Although 3 routes were requested, I deemed it more clean to have both steps of the 2FA login on the same endpoint
+
 ## Setup
 Perform the following steps to setup the service:
 
