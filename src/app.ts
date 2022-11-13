@@ -10,6 +10,7 @@ import { UserRepository } from "./infrastructure/repositories/user.repository";
 import { TokenRepository } from "./infrastructure/repositories/token.repository";
 import { EmailService } from "./domain/services/email.service";
 import { PrismaClient } from "@prisma/client";
+import { LoginValidator } from "./domain/validators/login.validator";
 
 const app = express();
 
@@ -35,6 +36,9 @@ container.register("IUserService", {
 });
 container.register("IValidator<CreateUserCommand>", {
     useClass: CreateUserCommandValidator
+});
+container.register("IValidator<LoginRequest>",{
+    useClass: LoginValidator
 });
 
 const usersController = container.resolve(UserController);

@@ -17,21 +17,30 @@ export class UserService implements IUserService{
     private _userRepo: IUserRepository;
     private _tokenRepo: ITokenRepository;
     private _createUserValidator: IValidator<CreateUserCommand>;
+    private _loginValidator: IValidator<LoginRequest>;
     private _emailService: IEmailService;
 
     constructor(
         @inject("IUserRepository") userRepo: IUserRepository,
         @inject("ITokenRepository") tokenRepo: ITokenRepository,
         @inject("IValidator<CreateUserCommand>") createUserValidator: IValidator<CreateUserCommand>,
-        @inject("IEmailService") emailService: IEmailService
+        @inject("IEmailService") emailService: IEmailService,
+        @inject("IValidator<LoginRequest>") loginValidator: IValidator<LoginRequest>
     ){
         this._userRepo = userRepo;
         this._tokenRepo = tokenRepo;
         this._createUserValidator = createUserValidator;
         this._emailService = emailService;
+        this._loginValidator = loginValidator;
     }
 
     async login(loginRequest: LoginRequest): Promise<LoginResponse>{
+        const validation = await this._loginValidator.validate(loginRequest);
+
+        if(!validation.isValid){
+            throw new ValidationError(validation.error ?? "Invalid data.");
+        }
+
         const user = await this._userRepo.getUserByEmail(loginRequest.email);
 
         if(!user){
