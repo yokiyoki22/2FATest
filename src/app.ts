@@ -16,8 +16,8 @@ const app = express();
 
 app.use(express.json());
 
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    if(err.status === 400)
+app.use((err: { status: number; }, req: Request, res: Response, next: NextFunction) => {
+    if(err instanceof SyntaxError && err.status === 400 )
       return res.status(err.status).send();
   
     return next(err);
