@@ -1,4 +1,4 @@
-FROM node
+FROM node AS BUILDER
 
 WORKDIR /usr/src/app
 
@@ -6,7 +6,25 @@ COPY package*.json ./
 
 RUN npm ci
 
-COPY ./build .
+COPY . .
 
-EXPOSE 8080
-CMD [ "node", "app.js" ]
+RUN npm run tsc
+
+FROM node
+
+WORKDIR /usr/src/app
+
+ENV NODE_ENV = production
+
+RUN npm install -g prisma
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY --from=BUILDER /usr/src/app/build ./build
+COPY ./prisma ./prisma
+
+RUN npx prisma generate
+
+CMD [ "node", "./build/src/app.js" ]
