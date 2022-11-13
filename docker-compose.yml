@@ -21,7 +21,7 @@ services:
     ports:
       - '3000:3000'
     entrypoint: /bin/sh
-    command: ./wait-for.sh db:3306 -t 30 -- node ./build/src/app.js
+    command: ./wait-for.sh db:3306 -t 30 -- npm run start
 
   migrations:
     build:

@@ -30,4 +30,4 @@ RUN chmod +x wait-for.sh
 
 RUN npx prisma generate
 
-CMD [ "node", "./build/src/app.js" ]
+CMD [ "npm", "run", "start" ]
