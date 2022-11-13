@@ -10,12 +10,17 @@ Perform the following steps to setup the service:
 `docker-compose up -d`
 3. Create env configuration
 `echo 'PORT=3000' > .env`
-`echo 'CONNECTION_STRING="mysql://UserService:Password123!@localhost:3306/Users"' > .env`
+`echo 'ROOT_CONNECTION_STRING="mysql://root:StrongPassword123!@localhost:3306/Users"' > .env`
 4. Transpile
 `npm run tsc`
-5. Run
+5. Migrate
+`npx prisma migrate dev`
+6. Run
 `npm run start`
 
-## Tests
+## Unit Tests
 Unit tests can be run with:
 `npx jest`
+
+## Examples
+An Insomnia v4 file is included with example calls

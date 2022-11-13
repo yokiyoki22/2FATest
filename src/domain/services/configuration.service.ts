@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 export const Port = process.env.PORT;
-export const ConnectionString = process.env.CONNECTION_STRING;
+export const ConnectionString = process.env.ROOT_CONNECTION_STRING;
 
 export function CheckConfig(){
     // console.log(process.env)
