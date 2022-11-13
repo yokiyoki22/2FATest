@@ -24,7 +24,9 @@ RUN npm ci
 
 COPY --from=BUILDER /usr/src/app/build ./build
 COPY ./prisma ./prisma
-COPY wait-for.sh .
+
+RUN wget -O wait-for.sh https://github.com/eficode/wait-for/releases/download/v2.2.3/wait-for
+RUN chmod +x wait-for.sh
 
 RUN npx prisma generate
 

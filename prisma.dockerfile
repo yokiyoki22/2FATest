@@ -6,6 +6,7 @@ RUN npm install -g prisma
 
 COPY package*.json ./
 
-COPY wait-for.sh .
+RUN wget -O wait-for.sh https://github.com/eficode/wait-for/releases/download/v2.2.3/wait-for
+RUN chmod +x wait-for.sh
 
 COPY ./prisma ./prisma
