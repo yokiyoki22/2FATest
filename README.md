@@ -15,3 +15,7 @@ Perform the following steps to setup the service:
 `npm run tsc`
 5. Run
 `npm run start`
+
+## Tests
+Unit tests can be run with:
+`npx jest`
