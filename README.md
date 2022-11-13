@@ -18,9 +18,9 @@ Perform the following steps to setup the service:
 `docker-compose -f docker-compose.dev.yml up -d`
 3. Create env configuration
 ```
-echo 'PORT=3000' > .env
-echo 'ROOT_CONNECTION_STRING="mysql://root:StrongPassword123!@localhost:3306/Users"' > .env
-echo 'JWT_SECRET=SuperStrongPassword' > .env
+echo 'PORT=3000' >> .env
+echo 'ROOT_CONNECTION_STRING="mysql://root:StrongPassword123!@localhost:3306/Users"' >> .env
+echo 'JWT_SECRET=SuperStrongPassword' >> .env
 ```
 4. Transpile
 `npm run tsc`
