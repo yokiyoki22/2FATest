@@ -16,15 +16,15 @@ export class UserController{
         try{
             const user: CreateUserCommand = req.body;
             const result = await this._userService.createUser(user);
-            res.send(result);
+            return res.send(result);
         }
         catch (e) {
             if(e instanceof ValidationError){
-                res.status(400).send({
+                return res.status(400).send({
                     message: e.message
                 });
             } else {
-                res.status(500).send({
+                return res.status(500).send({
                     message: "Something went wrong. Please try again."
                 });
             }
@@ -37,21 +37,21 @@ export class UserController{
             const result = await this._userService.login(loginRequest);
 
             if(result.error){
-                res.status(400).send({
+                return res.status(400).send({
                     message: result.error
                 });
             }
             else{
-                res.send(result);
+                return res.send(result);
             }
         }
         catch (e) {
             if(e instanceof ValidationError){
-                res.status(400).send({
+                return res.status(400).send({
                     message: e.message
                 });
             } else {
-                res.status(500).send({
+                return res.status(500).send({
                     message: "Something went wrong. Please try again."
                 });
             }
