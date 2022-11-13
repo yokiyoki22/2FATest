@@ -11,6 +11,7 @@ import { TokenRepository } from "./infrastructure/repositories/token.repository"
 import { EmailService } from "./domain/services/email.service";
 import { PrismaClient } from "@prisma/client";
 import { LoginValidator } from "./domain/validators/login.validator";
+import { Logger } from "./domain/services/logger";
 
 const app = express();
 
@@ -46,6 +47,9 @@ container.register("IValidator<CreateUserCommand>", {
 });
 container.register("IValidator<LoginRequest>",{
     useClass: LoginValidator
+});
+container.register("ILogger",{
+    useClass: Logger
 });
 
 const usersController = container.resolve(UserController);
