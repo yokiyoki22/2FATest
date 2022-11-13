@@ -41,8 +41,9 @@ export class UserController{
                     message: result.error
                 });
             }
-
-            res.send(result);
+            else{
+                res.send(result);
+            }
         }
         catch (e) {
             if(e instanceof ValidationError){
