@@ -17,7 +17,7 @@ Perform the following steps to setup the service:
 4. Transpile
 `npm run tsc`
 5. Migrate
-`npx prisma migrate dev`
+`npx prisma migrate deploy`
 6. Run
 `npm run start`
 
