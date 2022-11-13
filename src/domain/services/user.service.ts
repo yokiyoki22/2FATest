@@ -139,6 +139,11 @@ export class UserService implements IUserService{
         return "asdasd123123adsasd";
     }
     private generateOtpToken(): string{
-        return "ABCDEFG"
+        let token = "";
+        for(let i=0; i<10; i++){
+            const digit = crypto.randomInt(9);
+            token += digit.toString();
+        }
+        return token;
     }
 }
