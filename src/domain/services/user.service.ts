@@ -41,7 +41,7 @@ export class UserService implements IUserService{
             throw new ValidationError(validation.error ?? "Invalid data.");
         }
 
-        const user = await this._userRepo.getUserByEmail(loginRequest.email);
+        const user = await this._userRepo.getUserByEmail(loginRequest.email!);
 
         if(!user){
             return {
@@ -49,7 +49,7 @@ export class UserService implements IUserService{
                 error: "User does not exist."
             }
         }
-        if(!this.checkUserPassword(loginRequest.password, user.password)){
+        if(!this.checkUserPassword(loginRequest.password!, user.password)){
             return {
                 succeeded: false,
                 error: "Incorrect password."
@@ -111,13 +111,13 @@ export class UserService implements IUserService{
 
         await this._userRepo.createUser({
             id: crypto.randomUUID(),
-            email: user.email,
-            fullName: user.fullName,
-            twoFactor: user.enable2fa,
-            password: this.hashAndSalt(user.password)
+            email: user.email!,
+            fullName: user.fullName!,
+            twoFactor: user.enable2fa!,
+            password: this.hashAndSalt(user.password!)
         });
 
-        const created = await this._userRepo.getUserByEmail(user.email);
+        const created = await this._userRepo.getUserByEmail(user.email!);
 
         if(created == null){
             throw new Error("User creation failed.");

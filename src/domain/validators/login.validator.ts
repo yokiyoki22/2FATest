@@ -11,7 +11,7 @@ export class LoginValidator implements IValidator<LoginRequest>{
         if(!item.email){
             errors.push('Missing email.');
         }
-        if(!emailRegexp.test(item.email)){
+        if(item.email && !emailRegexp.test(item.email)){
             errors.push('Invalid email format.');
         }
         if(!item.password){
