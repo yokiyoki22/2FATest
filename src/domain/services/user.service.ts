@@ -52,6 +52,7 @@ export class UserService implements IUserService{
                 jwtToken: this.getJwtToken(user)
             }
         }
+
         if(!loginRequest.token){
             const token = this.generateOtpToken()
             await this._tokenRepo.saveToken({
@@ -69,6 +70,23 @@ export class UserService implements IUserService{
             }
         }
 
+        const token = await this._tokenRepo.getTokenByUserId(user.id);
+
+        if(!token || token.expiration < new Date()){
+            return{
+                succeeded: false,
+                error: "Your token expired. Please get a new one."
+            }
+        }
+
+        if(token.token !== loginRequest.token){
+            return{
+                succeeded:false,
+                error: "Invalid token."
+            }
+        }
+        
+        await this._tokenRepo.invalidateTokenForUserId(user.id)
         return {
             succeeded: true,
             jwtToken: this.getJwtToken(user)

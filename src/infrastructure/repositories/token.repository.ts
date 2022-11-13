@@ -11,6 +11,13 @@ export class TokenRepository implements ITokenRepository{
     ){
         this._client = client;
     }
+    async invalidateTokenForUserId(id: string): Promise<void> {
+        await this._client.otpToken.deleteMany({
+            where:{
+                userId: id
+            }
+        });
+    }
 
     async saveToken(token: OtpToken): Promise<void> {
         await this._client.otpToken.deleteMany({
