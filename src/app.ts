@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import express from 'express';
+import express, { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import { CheckConfig, Port } from "./domain/services/configuration.service";
 import { container } from "tsyringe";
 import { CreateUserCommandValidator } from "./domain/validators/createusercommand.validator";
@@ -15,6 +15,13 @@ import { LoginValidator } from "./domain/validators/login.validator";
 const app = express();
 
 app.use(express.json());
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    if(err.status === 400)
+      return res.status(err.status).send();
+  
+    return next(err);
+  });
 
 CheckConfig();
 
