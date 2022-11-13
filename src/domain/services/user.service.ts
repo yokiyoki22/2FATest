@@ -7,10 +7,13 @@ import { IValidator } from "../interfaces/ivalidator";
 import { ITokenRepository } from "../interfaces/repositories/itoken.repository";
 import { IUserRepository } from "../interfaces/repositories/iuser.repository";
 import { IUserService } from "../interfaces/services/iuser.service";
-import crypto from "crypto";
 import { LoginRequest } from "../contracts/requests/login-request";
 import { LoginResponse } from "../contracts/responses/login-response";
 import { IEmailService } from "../interfaces/services/iemail.service";
+import bcrypt from 'bcrypt';
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import { JwtSecret } from "./configuration.service";
 
 @injectable()
 export class UserService implements IUserService{
@@ -49,7 +52,7 @@ export class UserService implements IUserService{
                 error: "User does not exist."
             }
         }
-        if(!this.checkUserPassword(loginRequest.password!, user.password)){
+        if(!(await this.checkUserPassword(loginRequest.password!, user.password))){
             return {
                 succeeded: false,
                 error: "Incorrect password."
@@ -114,7 +117,7 @@ export class UserService implements IUserService{
             email: user.email!,
             fullName: user.fullName!,
             twoFactor: user.enable2fa!,
-            password: this.hashAndSalt(user.password!)
+            password: await this.hashAndSalt(user.password!)
         });
 
         const created = await this._userRepo.getUserByEmail(user.email!);
@@ -129,14 +132,18 @@ export class UserService implements IUserService{
             email: created.email
         };
     }
-    private checkUserPassword(password: string, hashedPassword: string): boolean {
-        return password === hashedPassword;
+    private async checkUserPassword(password: string, hashedPassword: string): Promise<boolean> {
+        return await bcrypt.compare(password, hashedPassword);
     }
-    private hashAndSalt(password: string): string {
-        return password;
+    private async hashAndSalt(password: string): Promise<string> {
+        return await bcrypt.hash(password, 12)
     }
     private getJwtToken(user: User): string{
-        return "asdasd123123adsasd";
+        return jwt.sign(
+            { userId: user.id }, 
+            JwtSecret!, 
+            { expiresIn: '1h' }
+        )
     }
     private generateOtpToken(): string{
         let token = "";
