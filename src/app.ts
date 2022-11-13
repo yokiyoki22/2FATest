@@ -8,12 +8,16 @@ import { UserController } from "./web/controllers/user.controller";
 import UserRoute from "./web/routes/user.route";
 import { UserRepository } from "./infrastructure/repositories/user.repository";
 import { TokenRepository } from "./infrastructure/repositories/token.repository";
+import { EmailService } from "./domain/services/email.service";
 
 const app = express();
 
 app.use(express.json());
 
 CheckConfig();
+container.register("IEmailService", {
+    useClass: EmailService
+});
 container.register("ITokenRepository",{
     useClass: TokenRepository
 });

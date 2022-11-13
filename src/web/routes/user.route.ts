@@ -6,7 +6,8 @@ export default function UserRoute(
 ){
     const router = Router();
 
-    router.post('/', (req, res) => userController.Create(req, res));
+    router.post('/', (req, res) => userController.create(req, res));
+    router.post('/login', (req, res) => userController.login(req, res));
 
     return router;
 }
