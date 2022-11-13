@@ -5,4 +5,4 @@
 
 */
 -- AlterTable
-ALTER TABLE `User` ADD COLUMN `password` VARCHAR(191) NOT NULL;
+ALTER TABLE `Users` ADD COLUMN `password` VARCHAR(64) NOT NULL;

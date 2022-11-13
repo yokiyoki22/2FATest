@@ -14,7 +14,7 @@ model User{
   id String @id @db.Char(36)
   fullName String @db.VarChar(64)
   email String @db.VarChar(64) @unique
-  password String
+  password String @db.VarChar(64)
   twoFactor Boolean
 }
 

@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `User` (
+CREATE TABLE `Users` (
     `id` CHAR(36) NOT NULL,
     `fullName` VARCHAR(64) NOT NULL,
     `email` VARCHAR(64) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `User` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `OtpToken` (
+CREATE TABLE `OtpTokens` (
     `userId` CHAR(36) NOT NULL,
     `token` CHAR(10) NOT NULL,
     `expiration` DATETIME(3) NOT NULL,
