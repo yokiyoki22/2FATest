@@ -1,4 +1,4 @@
-FROM node AS BUILDER
+FROM node:lts-alpine AS BUILDER
 
 WORKDIR /usr/src/app
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run tsc
 
-FROM node
+FROM node:lts-alpine
 
 WORKDIR /usr/src/app
 
@@ -24,6 +24,7 @@ RUN npm ci
 
 COPY --from=BUILDER /usr/src/app/build ./build
 COPY ./prisma ./prisma
+COPY wait-for.sh .
 
 RUN npx prisma generate
 

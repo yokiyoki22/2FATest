@@ -7,20 +7,27 @@ Although 3 routes were requested, I deemed it more clean to have both steps of t
 ## Setup
 Perform the following steps to setup the service:
 
+### Dockerized Test
+1. Initialize containers
+`docker-compose up -d`
+
+### Local test
 1. Install modules 
 `npm ci`
 2. Start mysql container 
-`docker-compose up -d`
+`docker-compose -f docker-compose.dev.yml up -d`
 3. Create env configuration
-`echo 'PORT=3000' > .env`
-`echo 'ROOT_CONNECTION_STRING="mysql://root:StrongPassword123!@localhost:3306/Users"' > .env`
+```
+echo 'PORT=3000' > .env
+echo 'ROOT_CONNECTION_STRING="mysql://root:StrongPassword123!@localhost:3306/Users"' > .env
+echo 'JWT_SECRET=SuperStrongPassword' > .env
+```
 4. Transpile
 `npm run tsc`
 5. Migrate
 `npx prisma migrate deploy`
 6. Run
 `npm run start`
-
 ## Unit Tests
 Unit tests can be run with:
 `npx jest`

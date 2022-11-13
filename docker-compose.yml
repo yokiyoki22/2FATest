@@ -2,15 +2,34 @@ version: '3.3'
 services:
   db:
     image: mysql:5.7
-    restart: always
     environment:
       MYSQL_DATABASE: 'Users'
       MYSQL_ROOT_PASSWORD: 'StrongPassword123!'
-    ports:
-      - '3306:3306'
-    expose:
-      - '3306'
     volumes:
       - my-db:/var/lib/mysql
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    depends_on:
+      - db
+      - migrations
+    environment:
+      PORT: 3000
+      ROOT_CONNECTION_STRING: mysql://root:StrongPassword123!@db:3306/Users
+      JWT_SECRET: 'SuperStrongPassword'
+    ports:
+      - '3000:3000'
+    command: ./wait-for.sh db:3306 -t 30 -- node ./build/src/app.js
+
+  migrations:
+    build:
+      context: .
+      dockerfile: prisma.dockerfile
+    depends_on:
+      - db
+    environment:
+      ROOT_CONNECTION_STRING: mysql://root:StrongPassword123!@db:3306/Users
+    command: ./wait-for.sh db:3306 -t 30 -- npx prisma migrate deploy
 volumes:
   my-db:
